@@ -1,1 +1,75 @@
+-- 1) Which restaurant received the most orders?
 
+SELECT 
+    restaurants.ï»¿Restaurant_Name,
+    COUNT(orders.ï»¿order_ID) AS order_count
+FROM
+    restaurants
+        JOIN
+    orders ON restaurants.Restaurant_ID = orders.Restaurant_ID
+GROUP BY restaurants.ï»¿Restaurant_Name
+ORDER BY order_count DESC
+LIMIT 1
+
+
+-- 2) Which restaurant saw most sales?
+
+SELECT 
+    restaurants.ï»¿Restaurant_Name,
+    SUM(orders.Quantity_of_Items * orders.Order_Amount) AS sales
+FROM
+    restaurants
+        JOIN
+    orders ON restaurants.Restaurant_ID = orders.Restaurant_ID
+GROUP BY restaurants.ï»¿Restaurant_Name
+ORDER BY sales DESC
+LIMIT 1
+
+
+-- 3) Which customer ordered the most?
+
+SELECT 
+    Customer_Name, COUNT(ï»¿order_ID) AS order_count
+FROM
+    orders
+GROUP BY Customer_Name
+ORDER BY order_count DESC
+LIMIT 1
+
+
+-- 4) When do customers order more in a day?
+
+SELECT 
+    Order_Date, COUNT(ï»¿order_ID) AS order_count
+FROM
+    orders
+GROUP BY Order_Date
+ORDER BY order_count DESC
+LIMIT 1
+
+
+-- 5) Which is the most liked cuisine?
+
+SELECT 
+    restaurants.Cuisine,
+    COUNT(orders.Customer_Rating_Food) AS ratings
+FROM
+    restaurants
+        JOIN
+    orders ON restaurants.Restaurant_ID = orders.Restaurant_ID
+GROUP BY restaurants.Cuisine
+ORDER BY ratings DESC
+LIMIT 1
+
+
+ -- 6) Which zone has the most sales?
+
+SELECT 
+    restaurants.Zone,
+    SUM(orders.Quantity_of_Items * orders.Order_Amount) AS sales
+FROM
+    restaurants
+        JOIN
+    orders ON restaurants.Restaurant_ID = orders.Restaurant_ID
+GROUP BY restaurants.Zone
+ORDER BY sales DESC
